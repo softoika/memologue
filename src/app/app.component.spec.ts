@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let htmlElement: HTMLElement;
+  let postButton: HTMLButtonElement;
+  let textarea: HTMLTextAreaElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,6 +26,8 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     htmlElement = fixture.debugElement.nativeElement;
+    postButton = htmlElement.querySelector('button#postMessage');
+    textarea = htmlElement.querySelector('textarea');
   });
 
   it('should create the app', () => {
@@ -47,23 +51,20 @@ describe('AppComponent', () => {
    * テキストエリアにメッセージを入力し、投稿ボタンを押すことでメッセージを追加できることを確認する
    */
   it('should post messages with submit button', () => {
-    const button = htmlElement.querySelector('button#postMessage');
-    const textarea = htmlElement.querySelector('textarea');
-
     // 1回目の投稿
-    textarea.value = 'hoge';
-    textarea.dispatchEvent(new Event('input'));
-    button.dispatchEvent(new Event('click'));
-
+    postMessage('hoge');
     // 2回目の投稿
-    textarea.value = 'fuga';
-    textarea.dispatchEvent(new Event('input'));
-    button.dispatchEvent(new Event('click'));
-
-    fixture.detectChanges();
+    postMessage('fuga');
     const messages = htmlElement.querySelectorAll('div.message');
     expect(messages.length).toBe(2);
     expect(messages[0].textContent).toContain('hoge');
     expect(messages[1].textContent).toContain('fuga');
   });
+
+  function postMessage(message: string): void {
+    textarea.value = message;
+    textarea.dispatchEvent(new Event('input'));
+    postButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+  }
 });
