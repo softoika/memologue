@@ -61,6 +61,15 @@ describe('AppComponent', () => {
     expect(messages[1].textContent).toContain('fuga');
   });
 
+  /**
+   * メッセージ投稿後にテキストエリアがクリアされていることを確認する
+   */
+  it('should clear textarea after post message', () => {
+    const component = fixture.componentInstance;
+    postMessage('1234');
+    expect(component.messageInput).toBe('');
+  });
+
   function postMessage(message: string): void {
     textarea.value = message;
     textarea.dispatchEvent(new Event('input'));
