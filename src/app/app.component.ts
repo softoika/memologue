@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   messages: string[] = [];
+  messageInput = '';
 
   addMessage(message: string) {
     this.messages.push(message);
