@@ -1,5 +1,5 @@
 <div class="message" *ngFor="let message of messages">
   {{message}}
 </div>
-<textarea [(ngModel)]="messageInput"></textarea>
+<textarea [(ngModel)]="messageInput" (keydown.enter)="addMessage(messageInput)"></textarea>
 <button id="postMessage" (click)="addMessage(messageInput)">Post</button>

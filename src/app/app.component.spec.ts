@@ -70,10 +70,28 @@ describe('AppComponent', () => {
     expect(component.messageInput).toBe('');
   });
 
+  /**
+   * テキストエリアで入力中にエンターキーを押すとボタンを押さなくても投稿できる
+   */
+  it('should post message by pressing return key', () => {
+    const component = fixture.componentInstance;
+    postMessageWithReturnKey('sorry, vimmer only');
+    const messages = htmlElement.querySelectorAll('div.message');
+    expect(messages.length).toBe(1);
+    expect(messages[0].textContent).toContain('sorry, vimmer only');
+  });
+
   function postMessage(message: string): void {
     textarea.value = message;
     textarea.dispatchEvent(new Event('input'));
     postButton.dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+  }
+
+  function postMessageWithReturnKey(message: string): void {
+    textarea.value = message;
+    textarea.dispatchEvent(new Event('input'));
+    textarea.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter'}));
     fixture.detectChanges();
   }
 });
