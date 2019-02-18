@@ -4,11 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  let fixture: ComponentFixture<AppComponent>;
-  let htmlElement: HTMLElement;
-  let postButton: HTMLButtonElement;
-  let textarea: HTMLTextAreaElement;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -22,6 +17,11 @@ describe('AppComponent', () => {
       ]
     }).compileComponents();
   }));
+
+  let fixture: ComponentFixture<AppComponent>;
+  let htmlElement: HTMLElement;
+  let postButton: HTMLButtonElement;
+  let textarea: HTMLTextAreaElement;
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
